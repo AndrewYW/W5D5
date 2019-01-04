@@ -31,12 +31,12 @@ class Clock {
 
 
 
-const readline = require("readline");
+// const readline = require("readline");
 
-const reader = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+// const reader = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout
+// });
 
 
 function addNumbers(sum, numsLeft, completionCallback) {
@@ -94,8 +94,53 @@ function innerBubbleSortLoop(arr, i, madeAnySwaps, outerBubbleSortLoop) {
     }
 }
 
-absurdBubbleSort([3, 2, 1], function (arr) {
-    console.log("Sorted array: " + JSON.stringify(arr));
-    reader.close();
-});
+// absurdBubbleSort([3, 2, 1], function (arr) {
+//     console.log("Sorted array: " + JSON.stringify(arr));
+//     reader.close();
+// });
 
+// Array.prototype.bubbleSort = function () {
+//     let isSorted = false;
+
+//     while (!isSorted) {
+//         isSorted = true;
+
+//         for (let i = 0; i < (this.length - 1); i++) {
+//             if (this[i] > this[i + 1]) {
+//                 // a crafty bit of array destructuring to avoid a temp variable
+//                 [this[i], this[i + 1]] = [this[i + 1], this[i]];
+//                 isSorted = false;
+//             }
+//         }
+//     }
+
+//     return this;
+// };
+
+Function.prototype.myBind = function (context) {
+    return (() => {
+        this.apply(context);
+    });
+};
+
+
+
+class Lamp {
+    constructor() {
+        this.name = "a lamp";
+    }
+}
+
+const turnOn = function () {
+    console.log("Turning on " + this.name);
+};
+
+const lamp = new Lamp();
+
+turnOn(); // should not work the way we want it to
+
+const boundTurnOn = turnOn.bind(lamp);
+const myBoundTurnOn = turnOn.myBind(lamp);
+
+boundTurnOn(); // should say "Turning on a lamp"
+myBoundTurnOn(); // should say "Turning on a lamp"
